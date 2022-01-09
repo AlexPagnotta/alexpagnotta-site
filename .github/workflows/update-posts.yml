@@ -1,0 +1,19 @@
+name: 📕 Update Posts
+on:
+  push:
+    branches: [ master ]
+jobs:
+  update:
+    name: 📕 Update Posts
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repo checkout ⬇️
+        uses: actions/checkout@v2
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      - name: Node test
+        run: node -v
