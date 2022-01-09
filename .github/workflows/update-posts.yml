@@ -16,4 +16,4 @@ jobs:
           node-version: 16
 
       - name: Node test
-        run: node -v
+        run: node ./scripts/update-posts.js
