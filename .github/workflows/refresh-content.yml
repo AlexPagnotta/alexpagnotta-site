@@ -1,0 +1,32 @@
+name: 🔄 Refresh Content
+on:
+  push:
+    branches: [ master ]
+jobs:
+  update-posts:
+    name: 🔄 Refresh Content
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: ⎔ Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+
+      # Get all files changed in the "content" folder since the last pushed commit
+      - name: ✍️ Get changed content files
+        id: changed-files
+        uses: tj-actions/changed-files@v13.1
+        with:
+          separator: ","
+          files: |
+            content/posts
+
+      # Execute the update posts script only if a file in the "content" folder is changed
+      - name: 🔄 Update Posts Script
+        if: steps.changed-files.outputs.any_changed == 'true'
+        run: node ./scripts/refresh-content.js  ${{ steps.changed-files.outputs.all_changed_files }}
