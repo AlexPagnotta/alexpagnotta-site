@@ -10,7 +10,7 @@ jobs:
       - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2
+          fetch-depth: 0
 
       - name: ⎔ Setup node
         uses: actions/setup-node@v2
@@ -22,6 +22,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v13.1
         with:
+          since_last_remote_commit: "true" # Compare changes with the last commit on origin/master, not with the previous one in any branch
           separator: ","
           files: |
             content/posts
