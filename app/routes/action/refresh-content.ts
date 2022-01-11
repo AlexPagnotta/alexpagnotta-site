@@ -13,17 +13,33 @@ export const action: ActionFunction = async ({ request }) => {
 
   const body = (await request.json()) as Body;
 
-  if ("contentPaths" in body && Array.isArray(body.contentPaths)) {
+  const refreshedPaths = [];
+
+  if (
+    "contentPaths" in body &&
+    Array.isArray(body.contentPaths) &&
+    body.contentPaths.length !== 0
+  ) {
     for (const contentPath of body.contentPaths) {
       if (typeof contentPath !== "string") continue;
 
       //Handle blog posts
       if (contentPath.startsWith("posts")) {
+        refreshedPaths.push(contentPath);
+
         console.log(contentPath);
       }
+
+      //Other content in the future
     }
 
-    return json({ message: "Content refreshed succesfully" }, { status: 200 });
+    return json(
+      {
+        message: "Content refreshed succesfully",
+        refreshedPaths,
+      },
+      { status: 200 }
+    );
   }
 
   return json({ message: "No action taken" }, { status: 400 });
