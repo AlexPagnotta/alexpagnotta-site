@@ -11,6 +11,16 @@ export const action: ActionFunction = async ({ request }) => {
     });
   }
 
+  // Check if the correct token has been passed,
+  // this way we are sure is the github action that is calling us
+  if (
+    request.headers.get("auth") !== process.env["REFRESH_CONTENT_AUTH_TOKEN"]
+  ) {
+    return new Response(`Ehy! What are you doing!`, {
+      status: 401,
+    });
+  }
+
   const body = (await request.json()) as Body;
 
   const refreshedPaths = [];

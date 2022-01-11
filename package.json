@@ -5,13 +5,14 @@
   "license": "",
   "scripts": {
     "build": "remix build",
-    "dev": "remix dev",
+    "dev": "node -r dotenv/config node_modules/.bin/remix dev",
     "postinstall": "remix setup node",
     "start": "remix-serve build"
   },
   "dependencies": {
     "@remix-run/react": "^1.1.1",
     "@remix-run/serve": "^1.1.1",
+    "dotenv": "^11.0.0",
     "esbuild": "^0.14.11",
     "mdx-bundler": "^8.0.1",
     "react": "^17.0.2",

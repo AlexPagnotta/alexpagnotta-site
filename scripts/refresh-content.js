@@ -11,6 +11,7 @@ const refreshContent = async (contentFiles) => {
     const res = await fetch(`${BASE_URL}/action/refresh-content`, {
       method: "POST",
       headers: {
+        auth: process.env.REFRESH_CONTENT_AUTH_TOKEN,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

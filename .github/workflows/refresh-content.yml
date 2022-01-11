@@ -1,7 +1,7 @@
 name: 🔄 Refresh Content
 on:
   push:
-    branches: [ master ]
+    branches: [master]
 jobs:
   update-posts:
     name: 🔄 Refresh Content
@@ -31,3 +31,5 @@ jobs:
       - name: 🔄 Update Posts Script
         if: steps.changed-files.outputs.any_changed == 'true'
         run: node ./scripts/refresh-content.js  ${{ steps.changed-files.outputs.all_changed_files }}
+        env:
+          REFRESH_CONTENT_AUTH_TOKEN: ${{ secrets.REFRESH_CONTENT_AUTH_TOKEN }}
