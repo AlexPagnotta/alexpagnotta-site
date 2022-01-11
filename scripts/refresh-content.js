@@ -3,9 +3,12 @@ const fetch = require("node-fetch");
 
 const [changedFiles] = process.argv.slice(2);
 
+//TODO: replace with real one
+const BASE_URL = "http://localhost:3000";
+
 const refreshContent = async (contentFiles) => {
   try {
-    const res = await fetch(`http://localhost:3000/action/refresh-content`, {
+    const res = await fetch(`${BASE_URL}/action/refresh-content`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
