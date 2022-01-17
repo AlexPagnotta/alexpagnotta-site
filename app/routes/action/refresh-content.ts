@@ -1,5 +1,6 @@
 import { ActionFunction, json, redirect } from "remix";
 import { getMdxPage } from "~/utils/mdx.server";
+import path from "path";
 
 type Body = {
   contentPaths: string[]; //Files to refresh, path should be in the format posts/fileName
@@ -36,6 +37,11 @@ export const action: ActionFunction = async ({ request }) => {
 
       //Handle blog posts
       if (contentPath.startsWith("posts")) {
+        const [contentDir, dirOrFilename] = contentPath.split("/");
+        if (!contentDir || !dirOrFilename) continue;
+
+        const slug = path.parse(dirOrFilename).name;
+
         refreshedPaths.push(contentPath);
 
         void getMdxPage(contentPath);
